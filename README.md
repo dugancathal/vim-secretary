@@ -4,6 +4,10 @@ I use vim a lot, let me say _a lot_. This helps me keep track of how I use my
 time through a simple web interface using just vim on my side, and providing a
 nice clean web GUI for my manager to know what I'm doing.
 
+Note: I've written this ahead of time. Consider the README as a kind of BDD
+until further notice is given. Feel free to hit me up if you want to help out,
+though.
+
 ## Installation
 
 Install:
