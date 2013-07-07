@@ -12,6 +12,7 @@ module Vim
 end
 
 require 'vim/secretary/config'
+require 'vim/secretary/parser'
 require 'vim/secretary/project'
 require 'vim/secretary/punch'
 require 'vim/secretary/timesheet'
