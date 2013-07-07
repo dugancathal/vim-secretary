@@ -2,8 +2,12 @@ class CreatePunches < ActiveRecord::Migration
   def change
     create_table :punches do |t|
       t.references :project
-      t.datetime :start
-      t.datetime :end
+      t.integer :time_worked
+      t.string :notes
+
+      t.timestamps
     end
+
+    add_index :punches, :project_id
   end
 end

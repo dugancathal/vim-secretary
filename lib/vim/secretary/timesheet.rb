@@ -9,9 +9,9 @@ module Vim
         @config['location']
       end
 
-      def clock_in(project_name, start_time = Time.now, end_time = nil)
+      def clock_in(project_name, time_worked = 0, notes = nil)
         project = Project.where(name: project_name).first_or_create
-        project.punches.create(start: start_time, end: end_time)
+        project.punches.create(time_worked: time_worked, notes: notes)
       end
 
       def entries
