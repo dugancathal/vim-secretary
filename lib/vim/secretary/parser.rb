@@ -3,26 +3,26 @@ require 'date'
 module Vim
   module Secretary
     class Parser
-      attr_reader :lines, :projects, :config
+      attr_reader :lines, :punches, :config
       COMMENT_OR_NIL_LINE_REGEX = /^\s*($|#.*$)/
 
-      PROJECT_LINE = /^
-                      (\S+?)\s+
-                      \[(.*?)?(?::(.*?))?\]
-                      \s+\-\s+
-                      (.*)
-                      $/x
+      PUNCH_LINE = /^
+                    (\S+?)\s+
+                    \[(.*?)?(?::(.*?))?\]
+                    \s+\-\s+
+                    (.*)
+                    $/x
 
       def initialize(file)
         @file = file
         @lines = File.read(file).split("\n")
-        @projects = []
+        @punches = []
       end
 
       def parse
         generate_config!
         remove_comments!
-        group_into_projects
+        group_into_punches
       end
 
       private
@@ -37,19 +37,19 @@ module Vim
         @lines.reject! {|line| line.match(COMMENT_OR_NIL_LINE_REGEX) }
       end
 
-      def group_into_projects
-        return @projects unless @projects.empty?
+      def group_into_punches
+        return @punches unless @punches.empty?
         @lines.each do |line|
-          if project = extract_project_from_line(line)
-            @projects << project
+          if project = extract_punch_from_line(line)
+            @punches << project
           else
-            @projects.last[:notes].concat line.squeeze
+            @punches.last[:notes].concat line.squeeze
           end
         end
       end
 
-      def extract_project_from_line(line)
-        if match = line.match(PROJECT_LINE)
+      def extract_punch_from_line(line)
+        if match = line.match(PUNCH_LINE)
           {
             date: DateTime.parse(match[1]),
             name: match[2].blank? ? file_parent_directory : match[2],

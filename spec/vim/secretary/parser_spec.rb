@@ -6,8 +6,8 @@ describe Vim::Secretary::Parser do
     @unaltered_file = File.read(@secretary_file)
     @parser = Vim::Secretary::Parser.new(@secretary_file.to_s)
     @parser.parse
-    @first_project = @parser.projects.first
-    @last_project = @parser.projects.last
+    @first_punch = @parser.punches.first
+    @last_punch = @parser.punches.last
   end
 
   it 'removes comment lines that start with #' do
@@ -16,28 +16,28 @@ describe Vim::Secretary::Parser do
   end
 
   it 'allows notes to spill onto a new line' do
-    @parser.projects.count.must_equal 4
+    @parser.punches.count.must_equal 4
   end
 
   it 'sets the date by the first field' do
-    @first_project[:date].must_be_kind_of DateTime
+    @first_punch[:date].must_be_kind_of DateTime
   end
 
   it 'sets the project name by the first field inside the []s' do
-    @first_project[:name].must_be_kind_of String
-    @first_project[:name].must_equal 'My Project'
+    @first_punch[:name].must_be_kind_of String
+    @first_punch[:name].must_equal 'My Project'
   end
 
   it 'uses the dirname as the project name if the project name is blank' do
-    @last_project[:name].must_equal 'fixtures'
+    @last_punch[:name].must_equal 'fixtures'
   end
 
   it 'sets the tags by the remaining fields inside the []s' do
-    @first_project[:tags].must_be_kind_of Array
+    @first_punch[:tags].must_be_kind_of Array
   end
 
   it 'sets the notes as anything after the dash (-)' do
-    @first_project[:notes].must_be_kind_of String
+    @first_punch[:notes].must_be_kind_of String
   end
 
   describe "#config" do
