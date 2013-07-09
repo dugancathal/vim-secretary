@@ -1,7 +1,7 @@
 module Vim
   module Secretary
     class Config
-      def initialize(config_text)
+      def initialize(config_text = '')
         @text = config_text
       end
 
