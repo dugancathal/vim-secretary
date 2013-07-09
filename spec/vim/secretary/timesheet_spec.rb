@@ -12,12 +12,4 @@ describe Vim::Secretary::Timesheet do
       Vim::Secretary::Timesheet.new(@config).filename.must_equal '.secretary.sqlite3'
     end
   end
-
-  describe '#clock_in' do
-    it "creates the project if it doesn't exist" do
-      timesheet = Vim::Secretary::Timesheet.new(@config)
-      timesheet.clock_in 'My First Project'
-      timesheet.entries.size.must_equal 1
-    end
-  end
 end
