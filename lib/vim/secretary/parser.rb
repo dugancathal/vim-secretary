@@ -8,7 +8,7 @@ module Vim
 
       PROJECT_LINE = /^
                       (\S+?)\s+
-                      \[(.*?)(?::(.*?))?\]
+                      \[(.*?)?(?::(.*?))?\]
                       \s+\-\s+
                       (.*)
                       $/x
@@ -52,11 +52,16 @@ module Vim
         if match = line.match(PROJECT_LINE)
           {
             date: DateTime.parse(match[1]),
-            name: match[2],
+            name: match[2].blank? ? file_parent_directory : match[2],
             tags: match[3].split(':'),
             notes: match[4].strip,
           }
         end
+      end
+
+      def file_parent_directory
+        dir = File.dirname(@file)
+        dir.split('/').last
       end
     end
   end
