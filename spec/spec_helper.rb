@@ -17,15 +17,8 @@ DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
 def stub_config
-  @file = Tempfile.new(PROJECT_ROOT.join('.secretary.conf').to_s)
-  @file.write "---\nconfig_option: 1\n"
-  @file.close
-
-  Vim::Secretary::Config.new(@file.path)
-end
-
-def destroy_stubbed_config
-  @file.unlink
+  text = "---\nconfig_option: 1\n"
+  Vim::Secretary::Config.new(text)
 end
 
 class MiniTest::Spec

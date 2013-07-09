@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Vim::Secretary::Timesheet do
   before(:all) { @config = stub_config }
-  after(:all) { destroy_stubbed_config }
 
   describe '#filename' do
     it 'exists' do
@@ -10,7 +9,7 @@ describe Vim::Secretary::Timesheet do
     end
 
     it 'defaults to ~/.secretary' do
-      Vim::Secretary::Timesheet.new(@config).filename.must_equal '~/.secretary'
+      Vim::Secretary::Timesheet.new(@config).filename.must_equal '.secretary.sqlite3'
     end
   end
 

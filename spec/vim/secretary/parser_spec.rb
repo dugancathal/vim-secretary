@@ -10,7 +10,7 @@ describe Vim::Secretary::Parser do
   end
 
   it 'removes comment lines that start with #' do
-    @unaltered_file.split("\n").count.must_equal 6
+    @unaltered_file.split("\n").count.must_equal 18
     @parser.lines.count.must_equal 4
   end
 
@@ -34,15 +34,27 @@ describe Vim::Secretary::Parser do
   it 'sets the notes as anything after the dash (-)' do
     @first_project[3].must_be_kind_of String
   end
+
+  describe "#config" do
+    it 'is generated from the top lines of comments' do
+      @parser.config.must_be_kind_of Vim::Secretary::Config
+    end
+
+    it 'provides all the config niceties' do
+      @parser.config['location'].must_equal '.'
+    end
+  end
 end
 
-describe "Parser Benchmark" do
-  before do
-    @secretary_file = PROJECT_ROOT.join('spec/fixtures/secretary-sample-bench')
-    @parser = Vim::Secretary::Parser.new(@secretary_file.to_s)
-  end
+if ENV['bench']
+  describe "Parser Benchmark" do
+    before do
+      @secretary_file = PROJECT_ROOT.join('spec/fixtures/secretary-sample-bench')
+      @parser = Vim::Secretary::Parser.new(@secretary_file.to_s)
+    end
 
-  bench_performance_constant 'parsing', 0.95 do
-    @parser.parse
+    bench_performance_constant 'parsing', 0.95 do
+      @parser.parse
+    end
   end
 end

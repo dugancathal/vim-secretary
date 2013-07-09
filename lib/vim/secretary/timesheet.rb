@@ -6,7 +6,7 @@ module Vim
       end
 
       def filename
-        @config['location']
+        @config['database']['database']
       end
 
       def clock_in(project_name, time_worked = 0, notes = nil)

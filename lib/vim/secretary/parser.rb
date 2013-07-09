@@ -3,15 +3,15 @@ require 'date'
 module Vim
   module Secretary
     class Parser
-      attr_reader :lines, :projects
+      attr_reader :lines, :projects, :config
       COMMENT_OR_NIL_LINE_REGEX = /^\s*($|#.*$)/
 
-      PROJECT_LINE = /
+      PROJECT_LINE = /^
                       (\S+?)\s+
-                      \[(.*?):(.*?)\]
+                      \[(.*?)(?::(.*?))?\]
                       \s+\-\s+
                       (.*)
-                    /x
+                      $/x
 
       def initialize(file)
         @file = file
@@ -20,8 +20,17 @@ module Vim
       end
 
       def parse
+        generate_config!
         remove_comments!
         group_into_projects
+      end
+
+      private
+
+      def generate_config!
+        config_text = ""
+        @lines.each {|line| !line.match(/#\s+\-{3}/) ? config_text << line : break }
+        @config = Vim::Secretary::Config.new(config_text)
       end
 
       def remove_comments!

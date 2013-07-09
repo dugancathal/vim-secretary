@@ -1,13 +1,12 @@
 module Vim
   module Secretary
     class Config
-      attr_reader :location
-      def initialize(location = '~/.secretary.conf')
-        @location = location
+      def initialize(config_text)
+        @text = config_text
       end
 
       def config
-        @config ||= HashWithIndifferentAccess.new(parse!(@location))
+        @config ||= HashWithIndifferentAccess.new(parse!(@text))
       end
 
       def [](key)
@@ -16,15 +15,23 @@ module Vim
       end
 
       private
-      
-      def parse!(file)
-        YAML::load(File.read(file), symbolize_keys: true)
+
+      def parse!(text)
+        YAML::load(text, symbolize_keys: true)
       end
 
       def default_configs
-        {
-          location: '~/.secretary'
-        }
+        HashWithIndifferentAccess.new({
+          location: '.',
+          database: {
+            adapter: 'sqlite3',
+            database: '.secretary.sqlite3',
+            pool: 1,
+          },
+          web: {
+            port: 8912,
+          },
+        })
       end
     end
   end
