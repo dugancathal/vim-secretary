@@ -43,14 +43,19 @@ module Vim
           if project = extract_project_from_line(line)
             @projects << project
           else
-            @projects[-1][-1].concat line.squeeze
+            @projects.last[:notes].concat line.squeeze
           end
         end
       end
 
       def extract_project_from_line(line)
         if match = line.match(PROJECT_LINE)
-          [DateTime.parse(match[1]), match[2], match[3].split(':'), match[4].strip]
+          {
+            date: DateTime.parse(match[1]),
+            name: match[2],
+            tags: match[3].split(':'),
+            notes: match[4].strip,
+          }
         end
       end
     end

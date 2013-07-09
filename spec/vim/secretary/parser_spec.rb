@@ -19,20 +19,20 @@ describe Vim::Secretary::Parser do
   end
 
   it 'sets the date by the first field' do
-    @first_project[0].must_be_kind_of DateTime
+    @first_project[:date].must_be_kind_of DateTime
   end
 
   it 'sets the project name by the first field inside the []s' do
-    @first_project[1].must_be_kind_of String
-    @first_project[1].must_equal 'My Project'
+    @first_project[:name].must_be_kind_of String
+    @first_project[:name].must_equal 'My Project'
   end
 
   it 'sets the tags by the remaining fields inside the []s' do
-    @first_project[2].must_be_kind_of Array
+    @first_project[:tags].must_be_kind_of Array
   end
 
   it 'sets the notes as anything after the dash (-)' do
-    @first_project[3].must_be_kind_of String
+    @first_project[:notes].must_be_kind_of String
   end
 
   describe "#config" do
