@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Vim::Secretary::Timesheet do
-  before(:all) { @config = stub_config }
+  it 'has a location' do
+    timesheet = Vim::Secretary::Timesheet.new location: 'somewhere'
+    timesheet.location.must_equal 'somewhere'
+  end
 
-  describe '#filename' do
-    it 'exists' do
-      Vim::Secretary::Timesheet.new(@config).filename.wont_be_nil
-    end
-
-    it 'defaults to ~/.secretary' do
-      Vim::Secretary::Timesheet.new(@config).filename.must_equal '.secretary.sqlite3'
-    end
+  it 'has a configuration' do
+    file = PROJECT_ROOT.join('spec', 'fixtures', 'secretary-sample-full').to_s
+    timesheet = Vim::Secretary::Timesheet.new location: file
+    timesheet.configuration.wont_be_nil
+    timesheet.configuration['location'].must_equal '.'
   end
 end

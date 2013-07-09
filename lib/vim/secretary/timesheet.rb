@@ -1,12 +1,17 @@
 module Vim
   module Secretary
-    class Timesheet
-      def initialize(config = Config.new)
-        @config = config
+    class Timesheet < ActiveRecord::Base
+      def configuration
+        parsed_content.config
       end
 
-      def filename
-        @config['database']['database']
+      def parsed_content
+        parser.parse unless parser.config
+        parser
+      end
+
+      def parser
+        @parser ||= Parser.new(location)
       end
     end
   end

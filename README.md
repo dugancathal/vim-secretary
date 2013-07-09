@@ -22,6 +22,19 @@ keep the web GUI running at all times and just give out the link when my manager
 asks for it. There's even a simple Rake task to generate the URL if I don't feel
 like 'ifconfig'-ing.
 
+## A word on vocabulary
+
+A _timesheet_ refers to the actual .secretary file that you maintain. My
+standard is one of these files per project.
+
+A _secretary database_ is the DB that stores the aggregated _timesheets_. I have
+two of these, one for at work (~/.secretary-work.db), and one for personal
+projects (~/.secretary-personal.db).
+
+The _location_ specified by a __timesheet__ is the root directory that it's
+content will be placed in (largely for SQLite, if you use something else, this
+option is basically useless)
+
 ## Contributing
 
 Please, let me know what you think, how you're using it, etc.
