@@ -14,6 +14,11 @@ describe Vim::Secretary::Config do
     @config['config_option'].must_equal 1
   end
 
+  it 'has indifferent access' do
+    @config[:config_option].must_equal 1
+    @config['config_option'].must_equal 1
+  end
+
   describe 'default settings' do
     it 'has one for location' do
       @config['location'].must_equal '.'

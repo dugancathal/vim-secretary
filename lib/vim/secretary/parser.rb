@@ -29,7 +29,9 @@ module Vim
 
       def generate_config!
         config_text = ""
-        @lines.each {|line| !line.match(/#\s+\-{3}/) ? config_text << line : break }
+        @lines.each do |line|
+          !line.match(/#\s+\-{3}/) ? config_text << "#{line.gsub(/# /, '')}\n" : break
+        end
         @config = Vim::Secretary::Config.new(config_text)
       end
 
@@ -53,7 +55,7 @@ module Vim
           {
             date: DateTime.parse(match[1]),
             name: match[2].blank? ? file_parent_directory : match[2],
-            tags: match[3].split(':'),
+            tags: match[3].to_s.split(':'),
             notes: match[4].strip,
           }
         end

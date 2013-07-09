@@ -11,7 +11,6 @@ describe Vim::Secretary::Parser do
   end
 
   it 'removes comment lines that start with #' do
-    @unaltered_file.split("\n").count.must_equal 19
     @parser.lines.count.must_equal 5
   end
 
@@ -47,6 +46,7 @@ describe Vim::Secretary::Parser do
 
     it 'provides all the config niceties' do
       @parser.config['location'].must_equal '.'
+      @parser.config['name'].must_equal "TJ's Timesheet"
     end
   end
 end

@@ -18,11 +18,18 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "minitest"
+  # Environment Related
+  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'rake'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'thin'
+
+  # Test Related
   spec.add_development_dependency 'database_cleaner'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'rack-test'
 
   spec.add_dependency 'enrar'
+  spec.add_dependency 'sinatra'
+  spec.add_dependency 'haml'
 end
