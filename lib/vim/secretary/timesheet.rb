@@ -23,13 +23,15 @@ module Vim
 
       def persist_punches!
         parser.punches.each do |punch_data|
+          project = project_from_punch(punch_data)
           punch = punches.where(
             created_at: punch_data[:date],
-            project_id: project_from_punch(punch_data).id
+            project_id: project.id
           ).first_or_create(
             notes: punch_data[:notes],
             timesheet_id: self.id
           )
+          append_tags_to_project(project, punch_data[:tags])
           punch.save
         end
       end
@@ -37,7 +39,11 @@ module Vim
       private
 
       def project_from_punch(punch)
-        project = projects.where(name: punch[:name]).first_or_create
+        projects.where(name: punch[:name]).first_or_create
+      end
+
+      def append_tags_to_project(project, tags)
+        project.tag_names = project.tag_names | tags
       end
     end
   end

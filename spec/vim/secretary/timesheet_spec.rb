@@ -30,8 +30,10 @@ describe Vim::Secretary::Timesheet do
       Vim::Secretary::Project.count.must_equal 3
     end
 
-    it "" do
-
+    it "stores the tags from the projects" do
+      @timesheet.persist_punches!
+      Vim::Secretary::Tag.count.must_equal 5
+      Vim::Secretary::Project.tagged_with('tag1').size.must_equal 2
     end
   end
 end

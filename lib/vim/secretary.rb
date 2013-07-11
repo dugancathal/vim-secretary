@@ -16,3 +16,6 @@ require 'vim/secretary/parser'
 require 'vim/secretary/project'
 require 'vim/secretary/punch'
 require 'vim/secretary/timesheet'
+
+require 'vim/secretary/tag'
+require 'vim/secretary/tagging'
