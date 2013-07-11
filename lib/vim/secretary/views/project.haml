@@ -1,0 +1,6 @@
+%h1= @project.name
+
+%ul
+  - @project.punches.each do |punch|
+    %li
+      %a{href: "/punches/#{punch.id}"}= punch.created_at.to_s(:long)
