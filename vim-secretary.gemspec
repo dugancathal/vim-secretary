@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'enrar'
   spec.add_dependency 'sinatra'
   spec.add_dependency 'haml'
+  spec.add_dependency 'redcarpet'
 end

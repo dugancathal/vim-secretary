@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'haml'
+require 'redcarpet'
 require 'vim/secretary'
 
 module Vim
@@ -10,17 +11,22 @@ module Vim
       set :haml, format: :html5, layout: :application
 
       class << self
-        attr_accessor :timesheet
+        attr_accessor :timesheet, :markdown
       end
 
       self.timesheet = Vim::Secretary::Timesheet
         .where(location: File.expand_path('~/.secretary')).first_or_create
+      self.markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
 
       set :port, timesheet.configuration['port']
 
       helpers do
         def timesheet_name
           self.class.timesheet.configuration['name']
+        end
+
+        def markdown
+          self.class.markdown
         end
       end
 
