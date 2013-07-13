@@ -1,64 +1,39 @@
 require 'date'
+require 'vim/secretary/secretary_parser'
 
 module Vim
   module Secretary
     class Parser
       attr_reader :lines, :punches, :config
-      COMMENT_OR_NIL_LINE_REGEX = /^\s*($|#.*$)/
-
-      PUNCH_LINE = /^
-                    (\S+?)\s+
-                    \[(.*?)?(?::(.*?))?\]
-                    \s+\-\s+
-                    (.*)
-                    $/x
-
       def initialize(file)
         @file = file
-        @lines = File.read(file).split("\n")
+        @data = File.read(file)
         @punches = []
+        @parser = SecretaryParser.new
       end
 
       def parse
         generate_config!
-        remove_comments!
-        group_into_punches
+        extract_punches
       end
 
       private
 
       def generate_config!
-        config_text = ""
-        @lines.each do |line|
-          !line.match(/#\s+\-{3}/) ? config_text << "#{line.gsub(/# /, '')}\n" : break
-        end
-        @config = Vim::Secretary::Config.new(config_text)
+        @config = Config.new tree.configs.map(&:as_yaml).join("\n")
       end
 
-      def remove_comments!
-        @lines.reject! {|line| line.match(COMMENT_OR_NIL_LINE_REGEX) }
+      def extract_punches
+        @punches = tree.punches.elements.map(&:to_h)
+        @punches.each do |punch|
+          punch[:date] = DateTime.parse punch[:date]
+          punch[:name] = file_parent_directory if punch[:name].blank?
+        end
+        @punches
       end
 
-      def group_into_punches
-        return @punches unless @punches.empty?
-        @lines.each do |line|
-          if project = extract_punch_from_line(line)
-            @punches << project
-          else
-            @punches.last[:notes].concat line.squeeze
-          end
-        end
-      end
-
-      def extract_punch_from_line(line)
-        if match = line.match(PUNCH_LINE)
-          {
-            date: DateTime.parse(match[1]),
-            name: match[2].blank? ? file_parent_directory : match[2],
-            tags: match[3].to_s.split(':'),
-            notes: match[4].strip,
-          }
-        end
+      def tree
+        @tree ||= @parser.parse @data 
       end
 
       def file_parent_directory

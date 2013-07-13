@@ -10,14 +10,6 @@ describe Vim::Secretary::Parser do
     @last_punch = @parser.punches.last
   end
 
-  it 'removes comment lines that start with #' do
-    @parser.lines.count.must_equal 5
-  end
-
-  it 'allows notes to spill onto a new line' do
-    @parser.punches.count.must_equal 4
-  end
-
   it 'sets the date by the first field' do
     @first_punch[:date].must_be_kind_of DateTime
   end
@@ -35,8 +27,19 @@ describe Vim::Secretary::Parser do
     @first_punch[:tags].must_be_kind_of Array
   end
 
-  it 'sets the notes as anything after the dash (-)' do
-    @first_punch[:notes].must_be_kind_of String
+  it 'sets the description as anything after the dash (-)' do
+    @first_punch[:description].must_be_kind_of String
+  end
+
+  describe 'comment parsing' do
+    it 'starts after the punch that you want to comment on' do
+      @first_punch[:comments].must_equal ""
+      @last_punch[:comments].must_be_kind_of String
+    end
+
+    it 'stops on the first line that is not indented two spaces' do
+      @last_punch[:comments].split("\n").size.must_equal 7
+    end
   end
 
   describe "#config" do

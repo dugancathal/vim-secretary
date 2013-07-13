@@ -28,7 +28,7 @@ module Vim
             created_at: punch_data[:date],
             project_id: project.id
           ).first_or_create(
-            notes: punch_data[:notes],
+            description: punch_data[:description],
             timesheet_id: self.id
           )
           append_tags_to_project(project, punch_data[:tags])

@@ -7,5 +7,5 @@
       %a{href: "/punches/#{punch.id}"}
         = punch.created_at.to_s(:long)
         = '-'
-        = punch.notes.truncate(20)
+        = punch.description.truncate(40)
 

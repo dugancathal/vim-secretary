@@ -4,7 +4,8 @@ class CreatePunches < ActiveRecord::Migration
       t.references :project
       t.references :timesheet
       t.integer :time_worked
-      t.string :notes
+      t.string :description
+      t.text :comments
 
       t.timestamps
     end

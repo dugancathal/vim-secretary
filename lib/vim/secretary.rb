@@ -2,6 +2,7 @@ require "vim/secretary/version"
 
 require 'enrar'
 require 'pathname'
+require 'treetop'
 
 module Vim
   module Secretary
