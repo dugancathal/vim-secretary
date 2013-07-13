@@ -3,8 +3,13 @@
 %html
   %head
     %title= timesheet_name
+    %link{href: '/stylesheets/cal-heatmap.css', type: 'text/css', rel: 'stylesheet'}
+    %script{src: '/javascripts/d3.v3.min.js', charset: 'utf-8', type: 'application/javascript'}
+    %script{src: '/javascripts/cal-heatmap.js', type: 'application/javascript'}
 
   
 %h1= timesheet_name
 
 = yield
+
+= haml :_calender, layout: false

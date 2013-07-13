@@ -48,6 +48,13 @@ module Vim
         haml :project
       end
 
+      get '/punches-for-calendar.json?' do
+        punches = Punch.where(created_at: DateTime.parse(params[:start])..DateTime.parse(params[:end]))
+        calendar_spots = punches
+          .each_with_object({}) {|punch, h| h[punch.created_at.to_i.to_s] = 1}
+        calendar_spots.to_json
+      end
+
       get '/punches/:id/?' do |id|
         @punch = Punch.find(id)
         haml :punch

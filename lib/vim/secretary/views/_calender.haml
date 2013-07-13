@@ -1,0 +1,12 @@
+#cal-heatmap
+
+:javascript
+  var cal = new CalHeatMap();
+    cal.init({
+      data: "/punches-for-calendar.json?start={{d:start}}&end={{d:end}}",
+      start: new Date('#{(Time.now.beginning_of_month).to_s(:iso)}'),
+      domain: 'month',
+      subDomain: 'hour',
+      range: 1,
+      scale: [1, 4, 9, 15]
+    });
