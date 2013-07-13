@@ -1,6 +1,11 @@
-%h1= @project.name
+.page-header
+  %h3= @project.name
 
 %ul
   - @project.punches.each do |punch|
     %li
-      %a{href: "/punches/#{punch.id}"}= punch.created_at.to_s(:long)
+      %a{href: "/punches/#{punch.id}"}
+        = punch.created_at.to_s(:long)
+        = '-'
+        = punch.notes.truncate(20)
+

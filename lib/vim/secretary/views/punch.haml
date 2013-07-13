@@ -1,1 +1,4 @@
-%h1= @punch.created_at.to_s :long
+.page-header
+  %h3= @punch.created_at.to_s :long
+  
+%p= @punch.notes

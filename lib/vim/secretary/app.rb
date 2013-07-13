@@ -24,6 +24,10 @@ module Vim
         end
       end
 
+      after do
+        ActiveRecord::Base.clear_active_connections!
+      end
+
       get '/' do
         redirect to('/projects/')
       end
