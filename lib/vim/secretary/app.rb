@@ -13,17 +13,14 @@ module Vim
         attr_accessor :timesheet
       end
 
+      self.timesheet = Vim::Secretary::Timesheet
+        .where(location: File.expand_path('~/.secretary')).first_or_create
+
+      set :port, timesheet.configuration['port']
+
       helpers do
         def timesheet_name
           self.class.timesheet.configuration['name']
-        end
-      end
-
-      before do
-        unless self.class.timesheet
-          self.class.timesheet =
-            Vim::Secretary::Timesheet.where(location: File.expand_path('~/.secretary'))
-              .first_or_create
         end
       end
 
