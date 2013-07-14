@@ -33,7 +33,13 @@ module Vim
       end
 
       def tree
-        @tree ||= @parser.parse @data 
+        @tree ||= begin
+          if tree = @parser.parse(@data)
+            tree
+          else
+            raise "Unable to parse your file. #{@parser.failure_reason}"
+          end
+        end
       end
 
       def file_parent_directory

@@ -62,16 +62,16 @@
   font-weight: bold;
 }
 
-ul {
+.box ul {
   list-style: none;
   padding: 10px;
 }
 
-ul li {
+.box ul li {
   border-bottom: 1px solid #aaa;
   margin-bottom: 5px;
 }
 
-ul a {
+.box ul a {
   text-decoration: none
 }

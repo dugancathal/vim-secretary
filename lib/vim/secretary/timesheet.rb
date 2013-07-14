@@ -30,6 +30,7 @@ module Vim
             project_id: project.id
           ).first_or_create(
             description: punch_data[:description],
+            comments: punch_data[:comments],
             timesheet_id: self.id
           )
           append_tags_to_project(project, punch_data[:tags])
