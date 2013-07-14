@@ -1,8 +1,12 @@
-#cal-heatmap{data: {:source => '/punches-for-calendar.json', 'collection-path' => '/punches.json'}}
+.box
+  .box-header
+    %span Your Punches
+  .box-inner
+    #cal-heatmap{data: {:source => '/punches-for-calendar.json', 'collection-path' => '/punches.json'}}
 
-.activity-listing
-  .activity-header
-    .activity-inner
-  .activity-list
-    %ul
+    .activity-listing
+      .activity-header
+        .activity-inner
+      .activity-list
+        %ul
 

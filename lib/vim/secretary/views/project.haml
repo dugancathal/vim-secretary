@@ -1,11 +1,12 @@
-.page-header
-  %h3= @project.name
-
-%ul
-  - @project.punches.each do |punch|
-    %li
-      %a{href: "/punches/#{punch.id}"}
-        = punch.created_at.to_s(:long)
-        = '-'
-        = punch.description.truncate(40)
+.box
+  .box-header
+    %span= @project.name
+  .box-inner
+    %ul
+      - @project.punches.each do |punch|
+        %li
+          %a{href: "/punches/#{punch.id}"}
+            = punch.created_at.to_s(:long)
+            = '-'
+            = punch.description.truncate(40)
 

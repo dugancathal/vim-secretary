@@ -1,8 +1,9 @@
-.page-header
-  %h3= @punch.created_at.to_s :long
-  
-%p= @punch.description
+.box
+  .box-header
+    %span= @punch.created_at.to_s :long
+  .box-inner
+    %p= @punch.description
 
 .github
   %article
-    != markdown.render @punch.comments.to_s
+    != markdown.render @punch.comments || "### No comments"

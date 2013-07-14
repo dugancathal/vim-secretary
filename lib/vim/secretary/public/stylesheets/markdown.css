@@ -22,11 +22,14 @@
   @group Wiki Styles
 ------------------------------------------------------------------------------*/
 
-.github{
+.github {
   font-family:Helvetica !important;
   background: #f8f8f8;
   margin: 20px 40px;
   padding: 3px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .github article {
