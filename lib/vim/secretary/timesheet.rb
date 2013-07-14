@@ -22,6 +22,7 @@ module Vim
       end
 
       def persist_punches!
+        set_configured_timezone!
         parser.punches.each do |punch_data|
           project = project_from_punch(punch_data)
           punch = punches.where(
@@ -44,6 +45,10 @@ module Vim
 
       def append_tags_to_project(project, tags)
         project.tag_names = project.tag_names | tags
+      end
+
+      def set_configured_timezone!
+        ActiveRecord::Base.default_timezone = configuration['timezone'] || 'UTC'
       end
     end
   end

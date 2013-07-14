@@ -55,6 +55,13 @@ module Vim
         calendar_spots.to_json
       end
 
+      get '/punches.json' do
+        start_time = Time.at(params[:date].to_i).beginning_of_hour
+        end_time = Time.at(params[:date].to_i).end_of_hour
+        @punches = Punch.where(created_at: start_time..end_time)
+        @punches.to_json root: false
+      end
+
       get '/punches/:id/?' do |id|
         @punch = Punch.find(id)
         haml :punch

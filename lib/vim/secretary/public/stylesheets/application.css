@@ -1,0 +1,23 @@
+.activity-listing {
+  color: #999999;
+}
+
+.activity-header {
+  border-bottom: 1px solid #ddd;
+  margin: 20px 10px;
+  text-align: center;
+  height: 0px;
+}
+
+.activity-inner {
+  display: inline-block;
+  position: relative;
+  top: -10px;
+  background: #fff;
+  padding: 0 5px;
+}
+
+.activity-inner strong {
+  color: #333;
+}
+

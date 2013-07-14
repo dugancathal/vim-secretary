@@ -2,3 +2,7 @@
   %h3= @punch.created_at.to_s :long
   
 %p= @punch.description
+
+.github
+  %article
+    != markdown.render @punch.comments.to_s
