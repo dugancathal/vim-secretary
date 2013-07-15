@@ -11,27 +11,19 @@ module Vim
 
       def [](key)
         key = key.to_sym
-        config[key] || default_configs[key]
+        config[key]
+      end
+
+      def self.from_timesheet(filename)
+        File.read(filename).match(/(.*)# ---/m) do |match|
+          self.new(match[1].gsub(/^# /, ''))
+        end
       end
 
       private
 
       def parse!(text)
         YAML::load(text, symbolize_keys: true)
-      end
-
-      def default_configs
-        HashWithIndifferentAccess.new({
-          location: '.',
-          database: {
-            adapter: 'sqlite3',
-            database: '.secretary.sqlite3',
-            pool: 1,
-          },
-          web: {
-            port: 8912,
-          },
-        })
       end
     end
   end

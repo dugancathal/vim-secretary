@@ -19,9 +19,17 @@ describe Vim::Secretary::Config do
     @config['config_option'].must_equal 1
   end
 
-  describe 'default settings' do
-    it 'has one for location' do
-      @config['location'].must_equal '.'
+  describe '.from_timesheet' do
+    before(:all) do
+      file = PROJECT_ROOT.join('spec', 'fixtures', 'secretary-sample-config').to_s
+      @config = Vim::Secretary::Config.from_timesheet(file)
+    end
+
+    it 'generates a config from a timesheet file' do
+      @config[:name].must_equal "TJ's Timesheet"
+      @config[:port].must_equal 8915
+      @config[:database].must_be_kind_of Hash
+      @config[:database][:database].must_equal 'secretary'
     end
   end
 end
