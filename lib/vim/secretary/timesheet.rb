@@ -33,7 +33,7 @@ module Vim
             comments: punch_data[:comments],
             timesheet_id: self.id
           )
-          append_tags_to_project(project, punch_data[:tags])
+          punch.tag_names = punch.tag_names | punch_data[:tags]
           punch.save
         end
       end
@@ -42,10 +42,6 @@ module Vim
 
       def project_from_punch(punch)
         projects.where(name: punch[:name]).first_or_create
-      end
-
-      def append_tags_to_project(project, tags)
-        project.tag_names = project.tag_names | tags
       end
 
       def set_configured_timezone!

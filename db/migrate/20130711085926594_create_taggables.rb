@@ -6,11 +6,11 @@ class CreateTaggables < ActiveRecord::Migration
 
     create_table :taggings do |t|
       t.references :tag
-      t.references :project
+      t.references :punch
     end
 
     add_index :taggings, :tag_id
-    add_index :taggings, :project_id
+    add_index :taggings, :punch_id
   end
 
   def self.down

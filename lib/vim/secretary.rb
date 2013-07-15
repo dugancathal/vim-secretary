@@ -35,14 +35,6 @@ module Vim
       (timesheet_config[:database] || default_db_config)
     end
 
-    def self.create_db!
-      if ActiveRecord::Base.connection.respond_to?(:create_database)
-        ActiveRecord::Base.connection.create_database db_config[:database]
-      else
-        ActiveRecord::Base.connection
-      end
-    end
-
     def self.migrate_db!
       ActiveRecord::Migration.verbose = true
       puts migration_dir = File.expand_path('../../../db/migrate', __FILE__)
@@ -60,10 +52,7 @@ module Vim
     def self.initialize!
       if timesheet && File.exist?(timesheet)
         ActiveRecord::Base.establish_connection db_config
-        unless database_prepared?
-          create_db!
-          migrate_db!
-        end
+        migrate_db! unless database_prepared?
         true
       else
         warn "You're using ENRAR. STAHP!"
