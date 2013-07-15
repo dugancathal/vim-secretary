@@ -106,7 +106,7 @@ input.search + .result {
   padding: 4px;
   border-top: solid 1px #dedede; 
   line-height: 2em;
-  height: 2em;
+  min-height: 2em;
 }
 
 .result .display-box:hover {

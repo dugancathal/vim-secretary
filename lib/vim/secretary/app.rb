@@ -70,7 +70,7 @@ module Vim
       get '/search' do
         return {}.to_json unless params[:fragment]
         @punches = Punch.tagged_with(params[:fragment])
-        @punches += Punch.where("description LIKE ? OR comments LIKE ?", "%#{params[:fragment]}%", "%#{params[:fragment]}%")
+        @punches += Punch.includes(:project).where("projects.name LIKE ? OR description LIKE ? OR comments LIKE ?", "%#{params[:fragment]}%", "%#{params[:fragment]}%", "%#{params[:fragment]}%")
         @punches.to_json(root: false)
       end
     end
