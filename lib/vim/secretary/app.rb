@@ -66,6 +66,13 @@ module Vim
         @punch = Punch.find(id)
         haml :punch
       end
+
+      get '/search' do
+        return {}.to_json unless params[:fragment]
+        @punches = Punch.tagged_with(params[:fragment])
+        @punches += Punch.where("description LIKE ? OR comments LIKE ?", "%#{params[:fragment]}%", "%#{params[:fragment]}%")
+        @punches.to_json(root: false)
+      end
     end
   end
 end

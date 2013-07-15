@@ -10,7 +10,7 @@ module Vim
       delegate :name, to: :project, prefix: true
 
       def self.tagged_with(name)
-          Tag.find_by_name!(name).projects
+        Tag.where(name: name).map {|tag| tag.punches}.flatten
       end
 
       def self.tag_counts

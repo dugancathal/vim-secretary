@@ -12,10 +12,14 @@
   
 %h1.center= timesheet_name
 
+.center.search-bar
+  %input.search{type: :search, placeholder: 'Search'} 
+  .result
 = yield
 
 = haml :_calender, layout: false
 
 %script{src: "http://code.jquery.com/jquery-2.0.3.min.js"}
 %script{src: '/javascripts/application.js', type: 'application/javascript'}
+%script{src: '/javascripts/typeahead.js', type: 'application/javascript'}
 
