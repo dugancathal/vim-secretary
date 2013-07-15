@@ -1,8 +1,9 @@
 require "vim/secretary/version"
 
-require 'enrar'
 require 'pathname'
 require 'treetop'
+require 'active_record'
+require 'active_support/all'
 
 module Vim
   module Secretary

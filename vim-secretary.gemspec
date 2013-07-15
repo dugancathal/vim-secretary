@@ -29,7 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'rack-test'
 
-  spec.add_dependency 'enrar'
+  spec.add_dependency 'activerecord', '>= 3.2'
+  spec.add_dependency 'activesupport', '>= 3.2'
   spec.add_dependency 'sinatra'
   spec.add_dependency 'haml'
   spec.add_dependency 'redcarpet'

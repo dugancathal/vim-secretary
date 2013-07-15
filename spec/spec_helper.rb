@@ -11,6 +11,7 @@ require 'vim/secretary'
 PROJECT_ROOT = Pathname.new File.expand_path('../../', __FILE__)
 ENV['ENRAR_ENV'] ||= 'test'
 
+Vim::Secretary.timesheet = PROJECT_ROOT.join('spec/fixtures/secretary-sample-full').to_s
 Vim::Secretary.initialize!
 
 DatabaseCleaner.strategy = :truncation

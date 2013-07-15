@@ -9,7 +9,3 @@ Rake::TestTask.new(:spec) do |t|
 end
 
 task :default => :spec
-
-require 'enrar/task'
-Enrar.initialize!
-Enrar::Task.new
