@@ -28,7 +28,8 @@ module Vim
           punch = punches.where(
             created_at: punch_data[:date],
             project_id: project.id
-          ).first_or_create(
+          ).first_or_create
+          punch.update_attributes(
             description: punch_data[:description],
             comments: punch_data[:comments],
             timesheet_id: self.id

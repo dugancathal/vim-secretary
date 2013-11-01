@@ -501,8 +501,16 @@ module Secretary
   end
 
   module Comments1
-    def comment
+    def space1
+      elements[0]
+    end
+
+    def space2
       elements[1]
+    end
+
+    def comment
+      elements[2]
     end
   end
 
@@ -533,47 +541,37 @@ module Secretary
     s1, i1 = [], index
     loop do
       i2, s2 = index, []
-      s3, i3 = [], index
-      loop do
-        r4 = _nt_space
-        if r4
-          s3 << r4
-        else
-          break
-        end
-      end
-      if s3.size < 2
-        @index = i3
-        r3 = nil
-      else
-        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
-      end
+      r3 = _nt_space
       s2 << r3
       if r3
-        i5, s5 = index, []
-        r6 = _nt_anything
-        s5 << r6
-        if r6
-          s7, i7 = [], index
-          loop do
-            r8 = _nt_line_separator
-            if r8
-              s7 << r8
-            else
-              break
+        r4 = _nt_space
+        s2 << r4
+        if r4
+          i5, s5 = index, []
+          r6 = _nt_anything
+          s5 << r6
+          if r6
+            s7, i7 = [], index
+            loop do
+              r8 = _nt_line_separator
+              if r8
+                s7 << r8
+              else
+                break
+              end
             end
+            r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+            s5 << r7
           end
-          r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
-          s5 << r7
+          if s5.last
+            r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+            r5.extend(Comments0)
+          else
+            @index = i5
+            r5 = nil
+          end
+          s2 << r5
         end
-        if s5.last
-          r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
-          r5.extend(Comments0)
-        else
-          @index = i5
-          r5 = nil
-        end
-        s2 << r5
       end
       if s2.last
         r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
@@ -810,7 +808,7 @@ module Secretary
 
     s0, i0 = [], index
     loop do
-      if has_terminal?('\G[a-zA-Z0-9\\_\\\'!\\.,\\-#`\\*]', true, index)
+      if has_terminal?('\G[a-zA-Z0-9\\_\\\'!\\.,\\-#`\\*\\?]', true, index)
         r1 = true
         @index += 1
       else
